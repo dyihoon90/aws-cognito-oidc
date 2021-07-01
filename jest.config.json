@@ -1,0 +1,8 @@
+{
+  "preset": "ts-jest",
+  "testEnvironment": "node",
+  "verbose": false,
+  "setupFiles": [],
+  "testTimeout": 10000,
+  "testMatch": ["**/__tests__/**/*.test.[jt]s?(x)"]
+}

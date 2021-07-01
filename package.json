@@ -1,0 +1,32 @@
+{
+  "name": "aws-cognito-oidc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dyihoon90/aws-cognito-oidc.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dyihoon90/aws-cognito-oidc/issues"
+  },
+  "homepage": "https://github.com/dyihoon90/aws-cognito-oidc#readme",
+  "dependencies": {
+    "amazon-cognito-identity-js": "^5.0.3",
+    "aws-sdk": "^2.937.0",
+    "dotenv": "^10.0.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.23",
+    "jest": "^27.0.6",
+    "webpack-cli": "^4.7.2"
+  }
+}

@@ -13,7 +13,7 @@ A: Yes, but not with default Cognito settings.
 During the login process, we add a hook to the `Pre Token Generation` event in Cognito. The event provides the user pool and username.
 
 \
-We can use `adminUserGlobalSignOut`, pass in the user pool and username, and remove all current active refresh tokens before returning tokens
+Using the user pool and username, we call `adminUserGlobalSignOut`, and remove all current active refresh tokens before returning tokens
 
 \
 During the API authorization process,instead of using the default Cognito Authorizer to protect our resource APIs on API Gateway, we need to use our own custom authorizer.

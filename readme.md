@@ -10,7 +10,7 @@ This repo is to share the findings on Cognito APIs and Cognito Authorizer on the
 A: Yes, but not with default Cognito settings.
 
 \
-During the login process, we add a hook to the Pre Token Generation event. The event provides the user pool and username.
+During the login process, we add a hook to the `Pre Token Generation` event in Cognito. The event provides the user pool and username.
 
 \
 We can use `adminUserGlobalSignOut`, pass in the user pool and username, and remove all current active refresh tokens before returning tokens
@@ -19,7 +19,7 @@ We can use `adminUserGlobalSignOut`, pass in the user pool and username, and rem
 During the API authorization process,instead of using the default Cognito Authorizer to protect our resource APIs on API Gateway, we need to use our own custom authorizer.
 
 \
-The custom authorizer will call Cognito's `getUser` API, which will return `401` if the refresh token that generated the access token had been revoked
+The custom authorizer will call Cognito's `getUser` API, which will return `401` if the refresh token that generated the access token had been revoked due to the global signout.
 
 ### Q: Can we use Cognito if we need to revoke a user's access if they are abusing our APIs?
 
@@ -35,7 +35,24 @@ If immediate restriction is not required, we can use the default Cognito authori
 \
 After 3 minutes is up, those access token will fail too, and the user cannot get new access tokens as all refresh tokens have been revoked.
 
----
+# APIs spike
+
+The APIs below can be tested in this repo.
+
+This is assuming you have already set up the user pool in Cognito and set up a flow to get the tokens.
+
+- Refresh token can only be gotten from the Authorization code grant flow.
+
+- Implicit grant flow only returns access token and ID token.
+
+- Client credentials flow only return access token.
+
+Steps:
+
+1. `npm i`
+2. `cp .env.example .env`
+3. fill in the relevant env variables in the .env
+4. run the scripts in the package.json e.g. `npm run getuser`
 
 ## refreshing session
 

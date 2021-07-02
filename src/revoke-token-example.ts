@@ -16,7 +16,6 @@ async function main() {
     const results = await new Promise<RevokeTokenResponse>((resolve, reject) => {
       const serviceProvider = new CognitoIdentityServiceProvider();
       serviceProvider.config = new Config({ region: AWS_REGION });
-      serviceProvider.endpoint = new Endpoint(COGNITO_SERVICE_ENDPOINT!);
       const params: CognitoIdentityServiceProvider.Types.RevokeTokenRequest = {
         Token: REFRESH_TOKEN!,
         ClientId: CLIENT_ID!

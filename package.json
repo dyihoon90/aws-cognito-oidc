@@ -7,7 +7,11 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+	"getuser": "ts-node src/get-user-example.ts",
+	"refresh": "ts-node src/refresh-session-example.ts",
+	"revoke": "ts-node src/revoke-token-example.ts",
+	"signout": "ts-node src/sign-out-user-globally-example.ts"
   },
   "repository": {
     "type": "git",
@@ -27,6 +31,7 @@
   "devDependencies": {
     "@types/jest": "^26.0.23",
     "jest": "^27.0.6",
+    "ts-node": "^10.0.0",
     "webpack-cli": "^4.7.2"
   }
 }

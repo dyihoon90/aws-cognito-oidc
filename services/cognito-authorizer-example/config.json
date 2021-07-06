@@ -1,0 +1,4 @@
+{
+	"TOKEN_ISSUER": "https://cognito-idp.ap-southeast-1.amazonaws.com/ap-southeast-1_aEtzJEtEk" ,
+	"JWKS_URI": "https://cognito-idp.ap-southeast-1.amazonaws.com/ap-southeast-1_aEtzJEtEk/.well-known/jwks.json"
+}

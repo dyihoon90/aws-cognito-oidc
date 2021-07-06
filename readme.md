@@ -143,10 +143,10 @@ if OAuth Scopes set to anything e.g. `my-app/get` or `profile`
 - using access token can access the API
 - ID token gives 401 unauthorized.
 
-### When a refresh token is revoked, will we still be authorized to acces the API?
+### When a refresh token is revoked, will an access token still be authorized to acces the API?
 
 \
-Yes. after calling `revokeToken` or `adminUserGlobalSignOut`, the Cognito authorizer will still allow requests with access/ID token of revoked refresh token.
+Yes. after calling `revokeToken` or `adminUserGlobalSignOut`, the default Cognito authorizer on API gateway will still allow requests with access/ID token of revoked refresh token.
 
 \
 This is probably because the authorizer only validates the JWT itself and does not confirm its revocation status with the Cognito server.

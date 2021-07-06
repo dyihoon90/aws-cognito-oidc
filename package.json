@@ -8,10 +8,10 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-	"getuser": "ts-node src/get-user-example.ts",
-	"refresh": "ts-node src/refresh-session-example.ts",
-	"revoke": "ts-node src/revoke-token-example.ts",
-	"signout": "ts-node src/sign-out-user-globally-example.ts"
+    "getuser": "ts-node src/get-user-example.ts",
+    "refresh": "ts-node src/refresh-session-example.ts",
+    "revoke": "ts-node src/revoke-token-example.ts",
+    "signout": "ts-node src/sign-out-user-globally-example.ts"
   },
   "repository": {
     "type": "git",
@@ -26,11 +26,17 @@
   "dependencies": {
     "amazon-cognito-identity-js": "^5.0.3",
     "aws-sdk": "^2.937.0",
-    "dotenv": "^10.0.0"
+    "dotenv": "^10.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "jwks-rsa": "^2.0.3"
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",
+    "@types/jsonwebtoken": "^8.5.3",
     "jest": "^27.0.6",
+    "serverless": "^2.50.0",
+    "serverless-plugin-typescript": "^1.1.5",
+    "serverless-webpack": "^5.5.1",
     "ts-node": "^10.0.0",
     "webpack-cli": "^4.7.2"
   }

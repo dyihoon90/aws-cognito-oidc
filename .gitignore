@@ -99,6 +99,9 @@ dist
 # Serverless directories
 .serverless/
 
+# Webpack Output
+.webpack/
+
 # FuseBox cache
 .fusebox/
 

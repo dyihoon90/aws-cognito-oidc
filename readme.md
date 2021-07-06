@@ -19,7 +19,16 @@ Using the user pool and username, we call `adminUserGlobalSignOut`, and remove a
 During the API authorization process,instead of using the default Cognito Authorizer to protect our resource APIs on API Gateway, we need to use our own custom authorizer.
 
 \
-The custom authorizer will call Cognito's `getUser` API, which will return `401` if the refresh token that generated the access token had been revoked due to the global signout.
+The user sends a request with an access token. The custom authorizer will call Cognito's `getUser` API w the access token.
+
+\
+If the refresh token that generated the access token had been revoked due to the global signout, Cognito will return `401`.
+
+\
+The custom authorizer will reject the request then.
+
+\
+So far Cognito does not have an API that takes in ID token. So if our resource API requires ID token, then both ID token and access tokens are required.
 
 ### Q: Can we use Cognito if we need to revoke a user's access if they are abusing our APIs?
 
@@ -34,6 +43,13 @@ If immediate restriction is not required, we can use the default Cognito authori
 
 \
 After 3 minutes is up, those access token will fail too, and the user cannot get new access tokens as all refresh tokens have been revoked.
+
+### Q: Other than checking revocation status, how to implement verification of the Cognito JWT in our custom authorizer?
+
+\
+A: See [here](https://github.com/awslabs/aws-support-tools/tree/master/Cognito/decode-verify-jwt)
+
+I also created a sample Lambda authorizer in `services/custom-authorizer-cognito-example`
 
 # APIs spike
 
@@ -142,3 +158,8 @@ Confirming with Cognito server is a round-trip for each protected API invocation
 
 \
 One possible way is to create a custom authorizer that calls the `getUser`, which will let us know whether the access token has been revoked.
+
+## TODO:
+
+1. Check if Cognito has API that takes in ID token
+2. Get a ballpark timing for how long `getUser` requests takes on average (implement custom authorizer on /search API)

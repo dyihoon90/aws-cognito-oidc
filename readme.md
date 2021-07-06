@@ -159,6 +159,8 @@ Confirming with Cognito server is a round-trip for each protected API invocation
 \
 One possible way is to create a custom authorizer that calls the `getUser`, which will let us know whether the access token has been revoked.
 
+I have included an example in [a serverless service](services/cognito-authorizer-example)
+
 ## TODO:
 
 1. Check if Cognito has API that takes in ID token

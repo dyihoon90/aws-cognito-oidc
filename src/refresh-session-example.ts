@@ -4,8 +4,9 @@ require('dotenv').config();
 const { USER_POOL_ID, CLIENT_ID, USERNAME, REFRESH_TOKEN } = process.env;
 
 /**
- * example JS code for refreshing a user's session
- * @returns a cognito user session which includes the
+ * example JS code for signing a user out of the current session. i.e., revoke
+ * Like all methods using the amazon-cognito-identity-js lib,
+ * this is expected to run on the browser, but can also be run in a node env
  */
 async function refreshSession(): Promise<CognitoUserSession> {
   try {

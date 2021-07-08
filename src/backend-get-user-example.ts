@@ -4,8 +4,9 @@ require('dotenv').config();
 const { AWS_REGION, ACCESS_TOKEN } = process.env;
 
 /**
- * example JS code for signing a user out of all active sessions
- * @returns a cognito user session which includes the
+ * example JS code for getting a user's info.
+ * @returns user data similar to that in the ID token
+ * this is exected to be run on a backend server in a node env
  */
 async function getUser(): Promise<CognitoIdentityServiceProvider.Types.GetUserResponse> {
   try {

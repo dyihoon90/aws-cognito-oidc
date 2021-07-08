@@ -5,7 +5,7 @@ const { AWS_REGION, USER_POOL_ID, USERNAME } = process.env;
 
 /**
  * example JS code for signing a user out of all active sessions
- * @returns a cognito user session which includes the
+ * This is expected to be run in a backend server in a node environment
  */
 async function signUserOut(): Promise<CognitoIdentityServiceProvider.Types.AdminUserGlobalSignOutResponse> {
   try {

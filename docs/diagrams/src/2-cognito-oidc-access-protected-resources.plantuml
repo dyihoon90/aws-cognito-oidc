@@ -1,0 +1,35 @@
+@startuml
+
+header
+This flow is for accessing resources after the tokens has been set on the browser cookies.
+In AWS API Gateway, the Authorization server can be set as a Lambda Authorizer on APIs in the API gateway.
+endheader
+
+participant Browser
+participant Api_gateway
+participant Authorizer_server
+participant Resource_server
+participant Cognito
+
+Browser -> Api_gateway: access resource at POST api.app.com/resource. cookie includes access token
+Api_gateway -> Authorizer_server: pass request to authorizer server to confirm if user is authorized
+Authorizer_server -> Authorizer_server: verify token w Cognito's public key, check audience, issuer, and token expiry
+Authorizer_server -> Cognito: call GET /getuser to validate that access token has not been revoked
+note left
+This additional call to Cognito is only required if you need to kick user out from your app immediately on refresh token revocation.
+If that is not required, you should skip this call. The user will not be able to get new access token w a revoked refresh token.
+So after the access token expires in 5 mins, he will not be able to access any resources.
+end note
+alt Authorization success
+Authorizer_server -> Api_gateway: returns authorization success
+Api_gateway->Resource_server: forward request to resource server
+Resource_server->Api_gateway: Do work, and return resources in response
+Api_gateway->Browser: Forward response from resource server
+
+else Authorization fail
+Authorizer_server -> Api_gateway: returns authorization fail
+Api_gateway -> Browser: Return authorization fail
+end
+
+
+@enduml

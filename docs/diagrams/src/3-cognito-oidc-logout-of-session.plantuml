@@ -1,0 +1,30 @@
+@startuml
+
+header
+This flow caters for the scenario where the user clicks Logout, or when the access token from the Browser is deemed invalid
+endheader
+
+participant Browser
+participant Cognito
+
+alt Logout from the current session only
+Browser -> Cognito: call Cognito's signout API with SDK cognitoUser.signOut() method
+
+note left
+This additional call to Cognito is only required if you need to kick user out from your app immediately on refresh token revocation.
+If that is not required, you should skip this call. The user will not be able to get new access token w a revoked refresh token.
+So after the access token expires in 5 mins, he will not be able to access any resources.
+end note
+alt Authorization success
+Authorizer_server -> Api_gateway: returns authorization success
+Api_gateway->Resource_server: forward request to resource server
+Resource_server->Api_gateway: Do work, and return resources in response
+Api_gateway->Browser: Forward response from resource server
+
+else Authorization fail
+Authorizer_server -> Api_gateway: returns authorization fail
+Api_gateway -> Browser: Return authorization fail
+end
+
+
+@enduml

@@ -1,6 +1,7 @@
 @startuml
 participant Browser
 participant App
+participant App_auth_callback_server
 participant Cognito
 participant OIDC_provider
 
@@ -116,23 +117,31 @@ expires_in: the expiry of the token
 state: state passed to /login
 end note
 
-else Authorization code grant
-Browser->App: Navigates to the redirect URL, the app URL, at https://www.app.com/callback
+
+ Authorization code grant
+Browser->App_auth_callback_server: Navigates to the redirect URL, the app_auth_callback_server's URL, at https://api.app.com/callback
 note right
 Query params
 1.
 code: the authorization code to exchange for tokens using OOB channel at Cognito's /token endpoint
 2.
 state: state passed to /login
+
+Q: Why navigate to app_auth_callback_server and not app server?
+
+A: Either works, but navigate to app_auth_callback_server means the logic to interface w Cognito can be served using serverless.
+In this way, we don't have to implement that logic in the web server at app.com.
+Do note that this only works if your resource servers that require the tokens also sits on the api.app.com domain.
+
 end note
 
-App->Cognito: Exchange the authorization code for OIDC provider's access token and ID token at OIDC's token endpoint
+App_auth_callback_server->Cognito: Exchange the authorization code for Cognito's access, ID, and refresh tokens at OIDC's token endpoint
 note right
 Exchange is done using out-of-band channel. This means it is done server-to-server without the browser involved.
 end note
-Cognito-->App: Returns Cognito's access token and ID token to App
+Cognito-->App_auth_callback_server: Returns Cognito's access, ID, and refresh tokens to App Auth callback server
 end
-App-->Browser: Responds with 302 to navigate browser back to the page user was at before starting log in. Also adds tokens to the cookie of browser
+App_auth_callback_server-->Browser: Responds with 302 to navigate browser back to the page user was at before starting log in. Also set cookie with access, ID, and refresh tokens at domain api.app.com
 note right
 Q: How does the app knows which page user was at?
 A: App usually passes this info to Cognito /login in the 'state' query param
